@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, ActivityIndicator, Platform, Dimensions, RefreshControl } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
+import {  Text, View, TouchableOpacity, FlatList, ActivityIndicator, Dimensions, RefreshControl } from 'react-native';
+import VideoItem from '/Users/suhaspatil/Documents/reactNativeDemo/Projects/LoginDemo/VideoItem.js'
 const {height, width} = Dimensions.get('window'); 
 const aspectRatio = height/width;
 
@@ -52,67 +52,28 @@ export default class App extends Component {
     return(
       <View style={{flex: 1}}>
         <View style={{padding : 10 ,marginTop: 20, height: 54, flexDirection: 'column', backgroundColor: '#4F1E41',alignItems:'center', width: '100%', }}>
-
           <TouchableOpacity style={{alignSelf:'flex-end'}} onPress={() => this.props.navigation.goBack()}>
             <Text style={{color:'white', fontSize: 18, fontWeight:'500'}}> Sign Out </Text>
           </TouchableOpacity>
-
         </View>
-          <FlatList
-            refreshControl={
-             <RefreshControl refreshing={this.state.isRefreshing}
+        <FlatList
+          refreshControl={
+            <RefreshControl refreshing={this.state.isRefreshing}
              onRefresh={this.pullToRefresh.bind(this)} />
             }
-            numColumns={aspectRatio>1.6 ? 1 : 2 }
-            style={flex=1}
-            showsVerticalScrollIndicator={true}
-            data={this.state.dataSource}
-            renderItem={({item, index}) => 
-            // <VidoeITem
-            //   title={item.data}
-            // />
-            <View style={{ flex: 1, margin: 3 }}>
-              <Image style={[styles.thumbnailImage, {height:200}]} source={{uri:item.thumbnail_image_name}} /> 
-              <View style={{alignContent:'center', flex: 1, margin: 3, flexDirection: 'row' }}>
-                <Image style={{ height: 40, width: 40, margin: 3, borderRadius: 20}} source={{uri:item.channel.profile_image_name}} /> 
-                <View style={{ flex: 0.9, margin: 3 }}>
-                  <Text style={styles.titleText}>{item.title}</Text>
-                  <Text style={{padding:5,height: 25,}}>{item.channel.name}</Text>
-                </View>
-              </View>
-          </View>
+          numColumns={aspectRatio>1.6 ? 1 : 2 }
+          style={flex=1}
+          showsVerticalScrollIndicator={true}
+          data={this.state.dataSource}
+          renderItem={({item, index}) => 
+            <VideoItem youtubeItems={item} />
           }
           keyExtractor={({id}, index) => id}
         />
       </View>
     );
-
-    }
-    componentDidMount(){
-      this.getVideoList()
-    }
   }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  flatview: {
-    padding: 10,
-    justifyContent: 'center',
-    height: 300,
-  },
-  thumbnailImage: {
-    padding:10,
-    // height: aspectRatio>1.6 ? 200 : 180,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  titleText: {
-    padding:5,
-    height: 25,
-    fontWeight:'bold',
-  },
-});
+  componentDidMount(){
+    this.getVideoList()
+  }
+}
