@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Button, TextInput, Image, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
-import NavigationStack from '/Users/suhaspatil/Documents/reactNativeDemo/Projects/LoginDemo/Navigation.js'
+import NavigationStack from '/Users/suhaspatil/Documents/reactNativeDemo/Projects/LoginDemo/Utils/Navigation.js'
 
 export default class App extends Component {
   render() {
@@ -17,5 +17,4 @@ export default class App extends Component {
       <NavigationStack />
     );
   }
-
 }

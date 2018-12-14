@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Button, TextInput, Image, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 
-
 export default class Login extends Component {
     moveToScreen = txt => {
         this.props.navigation.navigate(txt);
@@ -16,11 +15,11 @@ export default class Login extends Component {
       return (
       <View style={styles.container}>
       <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flex: 3 }}>
-        <Image style={{ height: 120, width: 120 }} source={require('./Resources/degreeIcon.png')} />
+        <Image style={{ height: 120, width: 120 }} source={require('/Users/suhaspatil/Documents/reactNativeDemo/Projects/LoginDemo/Resources/degreeIcon.png')} />
       </View>
       <View style={{ flexDirection: 'column', flex: 4 }}>
         <View style={styles.textInputView}>
-          <Image style={styles.textInputImage} source={require('./Resources/userName.png')} />
+          <Image style={styles.textInputImage} source={require('/Users/suhaspatil/Documents/reactNativeDemo/Projects/LoginDemo/Resources/userName.png')} />
           <TextInput
             style={styles.textInput}
             onChangeText={(text) => this.setState({
@@ -34,7 +33,7 @@ export default class Login extends Component {
           />
         </View>
         <View style={styles.textInputView}>
-          <Image style={styles.textInputImage} source={require('./Resources/userName.png')} />
+          <Image style={styles.textInputImage} source={require('/Users/suhaspatil/Documents/reactNativeDemo/Projects/LoginDemo/Resources/userName.png')} />
           <TextInput
             style={styles.textInput}
             onChangeText={(text) => this.setState({
