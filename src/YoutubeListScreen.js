@@ -12,6 +12,7 @@ export default class App extends Component {
     this.state ={ isLoading: true,
       isRefreshing: false,
       backupList:[],
+      dataSource:[],
       isSearchingVisible: false
     }
   }
@@ -52,7 +53,7 @@ export default class App extends Component {
     return(   
       <View style={styles.container}>
         { this.renderTextinput() }
-        <TouchableOpacity style={styles.touchableStyle} onPress={() => this.setState({isSearchingVisible: !this.state.isSearchingVisible})}>  
+        <TouchableOpacity style={styles.touchableStyle} onPress={() => this.setState({isSearchingVisible: !this.state.isSearchingVisible, dataSource: this.state.backupList })}>
           <Image style={styles.navImage} source={this.state.isSearchingVisible ? require( '/Users/suhaspatil/Documents/reactNativeDemo/Projects/LoginDemo/Resources/cancel.png') : require( '/Users/suhaspatil/Documents/reactNativeDemo/Projects/LoginDemo/Resources/search.png')} />  
         </TouchableOpacity>
         <TouchableOpacity style={styles.touchableStyle} onPress={() => this.props.navigation.goBack()}>
@@ -60,6 +61,14 @@ export default class App extends Component {
         </TouchableOpacity>
       </View>
     )
+  }
+
+  cancelSearch = () => {
+    if (this.state.isSearchingVisible) {
+      this.setState({data: dataSource})
+    } else {
+      this.setState({data: backupList})
+    }
   }
 
   renderTextinput = () => {
@@ -93,7 +102,7 @@ export default class App extends Component {
     }
     return(
       <View style={{flex: 1}}>
-          {this.renderHeader()}
+        {this.renderHeader()}
         <FlatList
           refreshControl={
             <RefreshControl refreshing={this.state.isRefreshing}
