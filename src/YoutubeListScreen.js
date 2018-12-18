@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  Text, View, TouchableOpacity, FlatList, ActivityIndicator, Dimensions, RefreshControl, Image, StyleSheet, TextInput} from 'react-native';
+import {  Text, View, TouchableOpacity, FlatList, ActivityIndicator, Dimensions, RefreshControl, Image, StyleSheet, TextInput, Keyboard} from 'react-native';
 import VideoItem from './VideoItem.js'
 
 const {height, width} = Dimensions.get('window'); 
@@ -45,7 +45,7 @@ export default class App extends Component {
   * In this method we call the load list API again for refreshing the list
   */ 
   pullToRefresh = () => {
-    this.setState({isRefreshing : true})
+    this.setState({isRefreshing : true, isSearchingVisible: false})
     this.getVideoList()
   }
   
@@ -74,8 +74,7 @@ export default class App extends Component {
   renderTextinput = () => {
     if (this.state.isSearchingVisible) {
       return(
-        <TextInput style={styles.serchText} placeholder='Search' placeholderTextColor='#BABABA' onChangeText={text => this.searchFilterFunction(text)}
-        autoCorrect={false}></TextInput>
+        <TextInput style={styles.serchText} placeholder='Search' placeholderTextColor='#BABABA' onChangeText={text => this.searchFilterFunction(text)}></TextInput>
       ) 
     } 
   }
@@ -84,9 +83,8 @@ export default class App extends Component {
     if(text==""){
       this.setState({ dataSource: this.state.backupList });  
     } else {
-      const newData = this.state.dataSource.filter(item => {
+      var newData = this.state.backupList.filter(item => {
         return item.title.toUpperCase().includes(text.toUpperCase())
-         
       });    
       this.setState({ dataSource: newData });  
     }
@@ -116,6 +114,7 @@ export default class App extends Component {
             <VideoItem youtubeItems={item} />
           }
           keyExtractor={({id}, index) => id}
+          onScrollBeginDrag={() => Keyboard.dismiss()}
         />
       </View>
     );
